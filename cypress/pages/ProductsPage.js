@@ -5,13 +5,13 @@ class ProductsPage {
       cy.get('.features_items'),
 
     firstProductLink: () =>
-      cy.get('[href*="/product_details/"]').first(),
+      cy.get('.features_items a[href*="/product_details/"]').first(),
 
     quantityInput: () =>
       cy.get('#quantity'),
 
     addToCartButton: () =>
-      cy.get('button.btn-default.cart'),
+      cy.get('.product-information button.btn.btn-default.cart'),
 
     addToCartSuccess: () =>
       cy.get('.modal-content'),

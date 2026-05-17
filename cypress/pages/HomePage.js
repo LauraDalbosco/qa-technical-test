@@ -2,7 +2,7 @@ class HomePage {
 
   elements = {
     signupLoginButton: () =>
-      cy.get('a[href="/login"]'),
+      cy.contains('a', 'Signup / Login'),
     
     logo: () =>
       cy.get('.logo'),
