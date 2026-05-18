@@ -1,63 +1,45 @@
+import { locators } from '../support/locators'
+
 class ProductsPage {
 
-  elements = {
-    productsContainer: () =>
-      cy.get('.features_items'),
-
-    firstProductLink: () =>
-      cy.get('.features_items a[href*="/product_details/"]').first(),
-
-    quantityInput: () =>
-      cy.get('#quantity'),
-
-    addToCartButton: () =>
-      cy.get('.product-information button.btn.btn-default.cart'),
-
-    addToCartSuccess: () =>
-      cy.get('.modal-content'),
-
-    viewCartLink: () =>
-      cy.get('.modal-content a[href="/view_cart"]'),
-  }
-
   accessProductsPage() {
-    cy.get('a[href="/products"]')
+    cy.get(locators.products.productsLink)
       .should('be.visible')
       .click()
 
-    this.elements.productsContainer()
+    cy.get(locators.products.productsContainer)
       .should('be.visible')
   }
 
   openFirstProduct() {
-    this.elements.firstProductLink()
+    cy.get(locators.products.productDetailsLink).first()
       .should('be.visible')
       .click()
 
-    cy.get('.product-information')
+    cy.get(locators.products.productInformation)
       .should('be.visible')
   }
 
   addProductToCart(quantity = 1, openCart = false) {
-    this.elements.quantityInput()
+    cy.get(locators.products.quantityInput)
       .should('be.visible')
       .clear()
       .type(quantity)
       .should('have.value', quantity.toString())
 
-    this.elements.addToCartButton()
+    cy.get(locators.products.addToCartButton)
       .should('be.visible')
       .click()
 
-    this.elements.addToCartSuccess()
+    cy.get(locators.products.addToCartModal)
       .should('be.visible')
 
     if (openCart) {
-      this.elements.viewCartLink()
+      cy.get(locators.products.viewCartLink)
         .should('be.visible')
         .click()
     } else {
-      cy.get('.modal-body .btn-default')
+      cy.get(locators.products.modalCloseButton)
         .should('be.visible')
         .click()
     }

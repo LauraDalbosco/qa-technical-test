@@ -1,26 +1,17 @@
+import { locators } from '../support/locators'
+
 class SignupPage {
 
-  elements = {
-    signupNameInput: () =>
-      cy.get('[data-qa="signup-name"]'),
-
-    signupEmailInput: () =>
-      cy.get('[data-qa="signup-email"]'),
-
-    signupButton: () =>
-      cy.get('[data-qa="signup-button"]'),
-  }
-
   fillSignupForm(name, email) {
-    this.elements.signupNameInput()
+    cy.get(locators.signup.nameInput)
       .type(name)
 
-    this.elements.signupEmailInput()
+    cy.get(locators.signup.emailInput)
       .type(email)
   }
 
   clickSignupButton() {
-    this.elements.signupButton()
+    cy.get(locators.signup.button)
       .click()
   }
 }

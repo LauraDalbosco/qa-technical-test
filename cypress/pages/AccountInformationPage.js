@@ -1,83 +1,25 @@
 import { faker } from '@faker-js/faker'
+import { locators } from '../support/locators'
 
 class AccountInformationPage {
 
-  elements = {
-    pageTitle: () =>
-      cy.contains('h2', 'Enter Account Information'),
-
-    titleRadioButton: () =>
-      cy.get('#id_gender1'),
-
-    titleFemaleRadioButton: () =>
-      cy.get('#id_gender2'),
-
-    passwordInput: () =>
-      cy.get('[data-qa="password"]'),
-
-    daysSelect: () =>
-      cy.get('[data-qa="days"]'),
-
-    monthsSelect: () =>
-      cy.get('[data-qa="months"]'),
-
-    yearsSelect: () =>
-      cy.get('[data-qa="years"]'),
-
-    firstNameInput: () =>
-      cy.get('[data-qa="first_name"]'),
-
-    lastNameInput: () =>
-      cy.get('[data-qa="last_name"]'),
-
-    companyInput: () =>
-      cy.get('[data-qa="company"]'),
-
-    addressInput: () =>
-      cy.get('[data-qa="address"]'),
-
-    countrySelect: () =>
-      cy.get('[data-qa="country"]'),
-
-    stateInput: () =>
-      cy.get('[data-qa="state"]'),
-
-    cityInput: () =>
-      cy.get('[data-qa="city"]'),
-
-    zipcodeInput: () =>
-      cy.get('[data-qa="zipcode"]'),
-
-    mobileNumberInput: () =>
-      cy.get('[data-qa="mobile_number"]'),
-
-    createAccountButton: () =>
-      cy.get('[data-qa="create-account"]'),
-
-    accountCreatedLabel: () =>
-      cy.get('[data-qa="account-created"]'),
-      
-    accountCreationSuccess: () =>
-      cy.contains('Account Created!'),
-  }
-
   validateAccountInformationPage() {
-    this.elements.pageTitle()
+    cy.contains('h2', locators.accountInformation.pageTitle)
       .should('be.visible')
   }
 
   selectGender(gender = 'Mr') {
     if (gender.toLowerCase() === 'mr') {
-      this.elements.titleRadioButton()
+      cy.get(locators.accountInformation.titleRadioButton)
         .check({ force: true })
     } else if (gender.toLowerCase() === 'mrs') {
-      this.elements.titleFemaleRadioButton()
+      cy.get(locators.accountInformation.titleFemaleRadioButton)
         .check({ force: true })
     }
   }
 
   fillPassword(password) {
-    this.elements.passwordInput()
+    cy.get(locators.accountInformation.passwordInput)
       .should('be.visible')
       .clear()
       .type(password)
@@ -93,15 +35,15 @@ class AccountInformationPage {
     const month = faker.helpers.arrayElement(months)
     const year = faker.number.int({ min: 1980, max: 2005 }).toString()
 
-    this.elements.daysSelect()
+    cy.get(locators.accountInformation.daysSelect)
       .should('be.visible')
       .select(day)
 
-    this.elements.monthsSelect()
+    cy.get(locators.accountInformation.monthsSelect)
       .should('be.visible')
       .select(month)
 
-    this.elements.yearsSelect()
+    cy.get(locators.accountInformation.yearsSelect)
       .should('be.visible')
       .select(year)
   }
@@ -112,60 +54,60 @@ class AccountInformationPage {
       'Israel', 'New Zealand', 'Singapore'
     ]
 
-    this.elements.firstNameInput()
+    cy.get(locators.accountInformation.firstNameInput)
       .should('be.visible')
       .clear()
       .type(faker.person.firstName())
 
-    this.elements.lastNameInput()
+    cy.get(locators.accountInformation.lastNameInput)
       .should('be.visible')
       .clear()
       .type(faker.person.lastName())
 
-    this.elements.companyInput()
+    cy.get(locators.accountInformation.companyInput)
       .should('be.visible')
       .clear()
       .type(faker.company.name())
 
-    this.elements.addressInput()
+    cy.get(locators.accountInformation.addressInput)
       .should('be.visible')
       .clear()
       .type(faker.location.streetAddress())
 
-    this.elements.countrySelect()
+    cy.get(locators.accountInformation.countrySelect)
       .should('be.visible')
       .select(faker.helpers.arrayElement(countries))
 
-    this.elements.stateInput()
+    cy.get(locators.accountInformation.stateInput)
       .should('be.visible')
       .clear()
       .type(faker.location.state())
 
-    this.elements.cityInput()
+    cy.get(locators.accountInformation.cityInput)
       .should('be.visible')
       .clear()
       .type(faker.location.city())
 
-    this.elements.zipcodeInput()
+    cy.get(locators.accountInformation.zipcodeInput)
       .should('be.visible')
       .clear()
       .type(faker.location.zipCode())
 
-    this.elements.mobileNumberInput()
+    cy.get(locators.accountInformation.mobileNumberInput)
       .should('be.visible')
       .clear()
       .type(faker.string.numeric(10))
   }
 
   clickCreateAccount() {
-    this.elements.createAccountButton()
+    cy.get(locators.accountInformation.createAccountButton)
       .should('be.visible')
       .should('not.be.disabled')
       .click()
   }
 
   validateAccountCreated() {
-    this.elements.accountCreationSuccess()
+    cy.contains(locators.accountInformation.accountCreationSuccess)
       .should('be.visible')
   }
 

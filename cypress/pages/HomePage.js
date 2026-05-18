@@ -1,12 +1,6 @@
-class HomePage {
+import { locators } from '../support/locators'
 
-  elements = {
-    signupLoginButton: () =>
-      cy.contains('a', 'Signup / Login'),
-    
-    logo: () =>
-      cy.get('.logo'),
-  }
+class HomePage {
 
   accessHomePage() {
     cy.visit('/')
@@ -14,12 +8,12 @@ class HomePage {
   }
 
   validateHomePage() {
-    this.elements.logo()
+    cy.get(locators.home.logo)
       .should('be.visible')
   }
 
   clickSignupLogin() {
-    this.elements.signupLoginButton()
+    cy.get(locators.home.signupLoginLink)
       .should('be.visible')
       .click()
   }

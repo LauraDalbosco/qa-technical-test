@@ -1,31 +1,15 @@
 import { parsePrice } from '../support/helpers'
+import { locators } from '../support/locators'
 
 class CartPage {
 
-  elements = {
-    cartTable: () =>
-      cy.get('#cart_info_table'),
-
-    firstProductName: () =>
-      cy.get('.cart_description').first(),
-
-    firstProductQuantity: () =>
-      cy.get('.cart_quantity').first(),
-
-    firstProductPrice: () =>
-      cy.get('.cart_price').first(),
-
-    firstProductTotal: () =>
-      cy.get('.cart_total_price').first(),
-  }
-
   validateCartPageLoaded() {
-    this.elements.cartTable()
+    cy.get(locators.cart.cartTable)
       .should('be.visible')
   }
 
   validateProductQuantity(quantity) {
-    this.elements.firstProductQuantity()
+    cy.get(locators.cart.cartQuantity).first()
       .invoke('text')
       .then((text) => {
         expect(Number(text.trim())).to.equal(quantity)
@@ -33,19 +17,19 @@ class CartPage {
   }
 
   validateProductCorrect() {
-    this.elements.firstProductName()
+    cy.get(locators.cart.cartDescription).first()
       .should('be.visible')
       .should('not.be.empty')
   }
 
   validateProductPrice(quantity) {
-    this.elements.firstProductPrice()
+    cy.get(locators.cart.cartPrice).first()
       .invoke('text')
       .then((priceText) => {
         const unitPrice = parsePrice(priceText)
         expect(unitPrice).to.be.greaterThan(0)
 
-        this.elements.firstProductTotal()
+        cy.get(locators.cart.cartTotalPrice).first()
           .invoke('text')
           .then((totalText) => {
             const totalPrice = parsePrice(totalText)
