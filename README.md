@@ -47,6 +47,13 @@ Validação de endpoint de produtos:
 
 **parsePrice():** Função reutilizável para parsing de preços no formato "Rs. XXX"
 
+### Locators
+
+- **cypress/support/locators.js:** Centraliza todos os seletores CSS
+  - Organizados por página (signup, accountInformation, cart, home, products)
+  - Facilita manutenção: alterções de seletores em um único lugar
+  - Melhora escalabilidade e reutilização de código
+
 ## Como Executar
 
 ### Instalação
